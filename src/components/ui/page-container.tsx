@@ -3,7 +3,15 @@ export const PageContainer = ({ children }: { children: React.ReactNode }) => {
 };
 
 export const PageHeader = ({ children }: { children: React.ReactNode }) => {
-  return <div className="flex items-center justify-between">{children}</div>;
+  return <div className="grid grid-cols-3 items-center gap-4">{children}</div>;
+};
+
+export const PageHeaderCenter = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  return <div className="flex items-center justify-center">{children}</div>;
 };
 
 export const PageHeaderContent = ({
@@ -27,7 +35,7 @@ export const PageDescription = ({
 };
 
 export const PageActions = ({ children }: { children: React.ReactNode }) => {
-  return <div className="flex items-center gap-2">{children}</div>;
+  return <div className="flex items-center justify-end gap-2">{children}</div>;
 };
 
 export const PageContent = ({ children }: { children: React.ReactNode }) => {

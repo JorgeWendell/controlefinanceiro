@@ -1,4 +1,5 @@
 import {
+  PageActions,
   PageContainer,
   PageContent,
   PageDescription,
@@ -6,6 +7,9 @@ import {
   PageHeaderContent,
   PageTitle,
 } from "@/components/ui/page-container";
+
+import { CategoriaFormDialog } from "./components/categoria-form-dialog";
+import { CategoriaList } from "./components/categoria-list";
 
 const CategoriasPage = () => {
   return (
@@ -17,12 +21,13 @@ const CategoriasPage = () => {
             Gerencie as categorias de suas transações
           </PageDescription>
         </PageHeaderContent>
+        <PageActions>
+          <CategoriaFormDialog />
+        </PageActions>
       </PageHeader>
 
       <PageContent>
-        <p className="text-muted-foreground">
-          Em breve: lista de categorias e formulário de cadastro
-        </p>
+        <CategoriaList />
       </PageContent>
     </PageContainer>
   );

@@ -2,7 +2,6 @@ import {
   boolean,
   date,
   decimal,
-  integer,
   numeric,
   pgEnum,
   pgTable,
@@ -85,7 +84,7 @@ export const bankAccountsTable = pgTable("bank_accounts", {
   numeroConta: text("numero_conta").notNull(),
   chavePix: text("chave_pix"),
   urlCartao: text("url_cartao"),
-  saldo: numeric("saldo").notNull().default(0),
+  saldo: numeric("saldo").notNull().default("0"),
   createdAt: timestamp("created_at").notNull(),
   updatedAt: timestamp("updated_at").notNull(),
 });
@@ -112,6 +111,7 @@ export const dividasTable = pgTable("dividas", {
   dataPagamento: date("data_pagamento"),
   valorPago: decimal("valor_pago", { precision: 10, scale: 2 }),
   pagamentoMethod: transactionPaymentMethodEnum("pagamento_method"),
+  parcela: text("parcela"),
   createdAt: timestamp("created_at").notNull(),
   updatedAt: timestamp("updated_at").notNull(),
 });
@@ -128,6 +128,8 @@ export const despesaFixaTable = pgTable("despesa_fixa", {
   valor: decimal("valor", { precision: 10, scale: 2 }).notNull(),
   status: statusEnum("status").notNull().default("a_pagar"),
   pagamentoMethod: transactionPaymentMethodEnum("pagamento_method"),
+  dataPagamento: date("data_pagamento"),
+  parcela: text("parcela"),
   createdAt: timestamp("created_at").notNull(),
   updatedAt: timestamp("updated_at").notNull(),
 });
@@ -143,7 +145,9 @@ export const despesaVariavelTable = pgTable("despesa_variavel", {
     .references(() => categoriesTable.id, { onDelete: "cascade" }),
   valor: decimal("valor", { precision: 10, scale: 2 }).notNull(),
   status: statusEnum("status").notNull().default("a_pagar"),
+  dataPagamento: date("data_pagamento"),
   pagamentoMethod: transactionPaymentMethodEnum("pagamento_method"),
+  parcela: text("parcela"),
   createdAt: timestamp("created_at").notNull(),
   updatedAt: timestamp("updated_at").notNull(),
 });
@@ -169,6 +173,24 @@ export const metasTable = pgTable("metas", {
     .notNull()
     .references(() => usersTable.id, { onDelete: "cascade" }),
   nome: text("nome").notNull(),
+  valor: decimal("valor", { precision: 10, scale: 2 }).notNull(),
+  valorAtual: decimal("valor_atual", { precision: 10, scale: 2 })
+    .notNull()
+    .default("0"),
+  data: date("data").notNull(),
+  bankAccountId: text("bank_account_id")
+    .notNull()
+    .references(() => bankAccountsTable.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+});
+
+export const investimentosTable = pgTable("investimentos", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => usersTable.id, { onDelete: "cascade" }),
+  descricao: text("descricao").notNull(),
   valor: decimal("valor", { precision: 10, scale: 2 }).notNull(),
   data: date("data").notNull(),
   bankAccountId: text("bank_account_id")

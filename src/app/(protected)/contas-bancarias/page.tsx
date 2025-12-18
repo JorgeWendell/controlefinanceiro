@@ -1,4 +1,5 @@
 import {
+  PageActions,
   PageContainer,
   PageContent,
   PageDescription,
@@ -6,6 +7,9 @@ import {
   PageHeaderContent,
   PageTitle,
 } from "@/components/ui/page-container";
+
+import { BankAccountFormDialog } from "./components/bank-account-form-dialog";
+import { BankAccountList } from "./components/bank-account-list";
 
 const ContasBancariasPage = () => {
   return (
@@ -17,12 +21,13 @@ const ContasBancariasPage = () => {
             Gerencie suas contas bancárias e cartões
           </PageDescription>
         </PageHeaderContent>
+        <PageActions>
+          <BankAccountFormDialog />
+        </PageActions>
       </PageHeader>
 
       <PageContent>
-        <p className="text-muted-foreground">
-          Em breve: lista de contas bancárias e formulário de cadastro
-        </p>
+        <BankAccountList />
       </PageContent>
     </PageContainer>
   );

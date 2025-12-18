@@ -1,13 +1,27 @@
 import {
+  PageActions,
   PageContainer,
   PageContent,
   PageDescription,
   PageHeader,
+  PageHeaderCenter,
   PageHeaderContent,
   PageTitle,
 } from "@/components/ui/page-container";
+import { PeriodFilter } from "@/components/ui/period-filter";
 
-const DividasPage = () => {
+import { DividaFormDialog } from "./components/divida-form-dialog";
+import { DividaList } from "./components/divida-list";
+
+interface DividasPageProps {
+  searchParams: Promise<{ mes?: string; ano?: string }>;
+}
+
+const DividasPage = async ({ searchParams }: DividasPageProps) => {
+  const params = await searchParams;
+  const mes = params.mes ? parseInt(params.mes) : undefined;
+  const ano = params.ano ? parseInt(params.ano) : undefined;
+
   return (
     <PageContainer>
       <PageHeader>
@@ -17,12 +31,16 @@ const DividasPage = () => {
             Gerencie suas dívidas e acompanhe os pagamentos
           </PageDescription>
         </PageHeaderContent>
+        <PageHeaderCenter>
+          <PeriodFilter />
+        </PageHeaderCenter>
+        <PageActions>
+          <DividaFormDialog />
+        </PageActions>
       </PageHeader>
 
       <PageContent>
-        <p className="text-muted-foreground">
-          Em breve: lista de dívidas e formulário de cadastro
-        </p>
+        <DividaList mes={mes} ano={ano} />
       </PageContent>
     </PageContainer>
   );

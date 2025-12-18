@@ -2,6 +2,7 @@
 
 import {
   CreditCard,
+  FileText,
   LayoutDashboard,
   LogOut,
   Moon,
@@ -85,6 +86,24 @@ const data = {
             {
               title: "Investimentos",
               url: "/investimentos",
+            },
+          ],
+        },
+        {
+          title: "Relatórios",
+          icon: FileText,
+          items: [
+            {
+              title: "Relatório Geral",
+              url: "/relatorios",
+            },
+            {
+              title: "Relatório Mensal",
+              url: "/relatorios/mensal",
+            },
+            {
+              title: "Relatório Anual",
+              url: "/relatorios/anual",
             },
           ],
         },

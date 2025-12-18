@@ -8,15 +8,6 @@ import {
 
 import { SummaryCard } from "./summary-card";
 
-// TODO: Substituir por dados reais do banco
-const mockData = {
-  totalGanhos: 12500.0,
-  totalDespesas: 4280.5,
-  totalDividas: 2500.0,
-  totalInvestimentos: 8000.0,
-  saldoDisponivel: 5719.5,
-};
-
 function formatCurrency(value: number): string {
   return new Intl.NumberFormat("pt-BR", {
     style: "currency",
@@ -24,42 +15,47 @@ function formatCurrency(value: number): string {
   }).format(value);
 }
 
-export function SummaryCards() {
+interface SummaryCardsProps {
+  data: {
+    totalGanhos: number;
+    totalDespesas: number;
+    totalDividas: number;
+    totalInvestimentos: number;
+    saldoDisponivel: number;
+  };
+}
+
+export function SummaryCards({ data }: SummaryCardsProps) {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
       <SummaryCard
         title="Total de Ganhos"
-        value={formatCurrency(mockData.totalGanhos)}
+        value={formatCurrency(data.totalGanhos)}
         icon={TrendingUp}
-        description="+12% em relação ao mês anterior"
         descriptionColor="green"
       />
       <SummaryCard
         title="Total de Despesas"
-        value={formatCurrency(mockData.totalDespesas)}
+        value={formatCurrency(data.totalDespesas)}
         icon={TrendingDown}
-        description="-8% em relação ao mês anterior"
         descriptionColor="red"
       />
       <SummaryCard
         title="Total de Dívidas"
-        value={formatCurrency(mockData.totalDividas)}
+        value={formatCurrency(data.totalDividas)}
         icon={Wallet}
-        description="3 parcelas pendentes"
         descriptionColor="orange"
       />
       <SummaryCard
         title="Total de Investimentos"
-        value={formatCurrency(mockData.totalInvestimentos)}
+        value={formatCurrency(data.totalInvestimentos)}
         icon={PiggyBank}
-        description="+5.2% de rendimento"
         descriptionColor="blue"
       />
       <SummaryCard
         title="Saldo Disponível"
-        value={formatCurrency(mockData.saldoDisponivel)}
+        value={formatCurrency(data.saldoDisponivel)}
         icon={DollarSign}
-        description="Atualizado agora"
         descriptionColor="default"
       />
     </div>

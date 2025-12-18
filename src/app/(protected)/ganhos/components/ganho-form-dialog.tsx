@@ -1,0 +1,196 @@
+"use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Plus } from "lucide-react";
+import { useAction } from "next-safe-action/hooks";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+import { createGanhoAction, getBankAccountsAction } from "../actions";
+
+const formSchema = z.object({
+  descricao: z.string().min(1, "Descrição é obrigatória"),
+  data: z.string().min(1, "Data é obrigatória"),
+  valor: z.string().min(1, "Valor é obrigatório"),
+  bankAccountId: z.string().min(1, "Banco é obrigatório"),
+});
+
+type FormData = z.infer<typeof formSchema>;
+
+type BankAccount = {
+  id: string;
+  nomeBanco: string;
+};
+
+export function GanhoFormDialog() {
+  const [open, setOpen] = useState(false);
+  const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([]);
+
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      descricao: "",
+      data: "",
+      valor: "",
+      bankAccountId: "",
+    },
+  });
+
+  const { execute, isPending } = useAction(createGanhoAction, {
+    onSuccess: () => {
+      toast.success("Ganho cadastrado com sucesso!");
+      form.reset();
+      setOpen(false);
+    },
+    onError: (error) => {
+      toast.error(error.error.serverError || "Erro ao cadastrar ganho");
+    },
+  });
+
+  useEffect(() => {
+    const loadBankAccounts = async () => {
+      const accounts = await getBankAccountsAction();
+      setBankAccounts(accounts);
+    };
+    loadBankAccounts();
+  }, []);
+
+  const onSubmit = (data: FormData) => {
+    execute(data);
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button>
+          <Plus />
+          Ganhos
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Novo Ganho</DialogTitle>
+          <DialogDescription>
+            Adicione um novo ganho ao seu controle financeiro.
+          </DialogDescription>
+        </DialogHeader>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="descricao"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Descrição</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Ex: Salário, Freelance..." {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="data"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Data</FormLabel>
+                  <FormControl>
+                    <Input type="date" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="valor"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Valor</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      step="0.01"
+                      placeholder="0,00"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="bankAccountId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Banco</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione um banco" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {bankAccounts.map((account) => (
+                        <SelectItem key={account.id} value={account.id}>
+                          {account.nomeBanco}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <DialogFooter>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setOpen(false)}
+              >
+                Cancelar
+              </Button>
+              <Button type="submit" disabled={isPending}>
+                {isPending ? "Salvando..." : "Confirmar"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
+  );
+}

@@ -1,4 +1,5 @@
 import {
+  PageActions,
   PageContainer,
   PageContent,
   PageDescription,
@@ -6,6 +7,9 @@ import {
   PageHeaderContent,
   PageTitle,
 } from "@/components/ui/page-container";
+
+import { MetaFormDialog } from "./components/meta-form-dialog";
+import { MetaList } from "./components/meta-list";
 
 const MetasPage = () => {
   return (
@@ -17,12 +21,13 @@ const MetasPage = () => {
             Defina e acompanhe suas metas financeiras
           </PageDescription>
         </PageHeaderContent>
+        <PageActions>
+          <MetaFormDialog />
+        </PageActions>
       </PageHeader>
 
       <PageContent>
-        <p className="text-muted-foreground">
-          Em breve: lista de metas e formulário de cadastro
-        </p>
+        <MetaList />
       </PageContent>
     </PageContainer>
   );
