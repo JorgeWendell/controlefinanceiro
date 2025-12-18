@@ -26,7 +26,7 @@ export function NavMain({
     label: string;
     items: {
       title: string;
-      url: string;
+      url?: string;
       icon?: LucideIcon;
       isActive?: boolean;
       items?: {
