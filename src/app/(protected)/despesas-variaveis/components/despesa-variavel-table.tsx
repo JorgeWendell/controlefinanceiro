@@ -210,7 +210,7 @@ export function DespesaVariavelTable({ despesas }: DespesaVariavelTableProps) {
 
   return (
     <>
-      <div className="rounded-md border">
+      <div className="overflow-x-auto rounded-md border">
         <Table>
           <TableHeader>
             <TableRow>
@@ -259,7 +259,7 @@ export function DespesaVariavelTable({ despesas }: DespesaVariavelTableProps) {
       </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-[500px]">
+        <DialogContent className="max-h-[90vh] w-[95vw] max-w-[500px] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Editar Despesa Variável</DialogTitle>
             <DialogDescription>
@@ -326,7 +326,7 @@ export function DespesaVariavelTable({ despesas }: DespesaVariavelTableProps) {
                   </FormItem>
                 )}
               />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <FormField
                   control={form.control}
                   name="status"
@@ -413,15 +413,20 @@ export function DespesaVariavelTable({ despesas }: DespesaVariavelTableProps) {
                   )}
                 />
               )}
-              <DialogFooter>
+              <DialogFooter className="flex-col gap-2 sm:flex-row">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setOpen(false)}
+                  className="w-full sm:w-auto"
                 >
                   Cancelar
                 </Button>
-                <Button type="submit" disabled={isPending}>
+                <Button
+                  type="submit"
+                  disabled={isPending}
+                  className="w-full sm:w-auto"
+                >
                   {isPending ? "Salvando..." : "Salvar"}
                 </Button>
               </DialogFooter>

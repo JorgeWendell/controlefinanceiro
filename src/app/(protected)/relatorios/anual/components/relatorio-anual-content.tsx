@@ -89,30 +89,30 @@ export function RelatorioAnualContent({ data }: RelatorioAnualContentProps) {
   const saldoAnual = totalGanhos - totalDespesas;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Cards de resumo anual */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-3">
         <Card className="border-green-500/20 bg-green-500/5">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">
+          <CardHeader className="p-4 pb-2 md:p-6 md:pb-2">
+            <CardTitle className="text-xs font-medium md:text-sm">
               Total Ganhos {data.ano}
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-green-500">
+          <CardContent className="p-4 pt-0 md:p-6 md:pt-0">
+            <p className="text-xl font-bold text-green-500 md:text-2xl">
               {formatCurrency(totalGanhos)}
             </p>
           </CardContent>
         </Card>
 
         <Card className="border-red-500/20 bg-red-500/5">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">
+          <CardHeader className="p-4 pb-2 md:p-6 md:pb-2">
+            <CardTitle className="text-xs font-medium md:text-sm">
               Total Despesas {data.ano}
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-red-500">
+          <CardContent className="p-4 pt-0 md:p-6 md:pt-0">
+            <p className="text-xl font-bold text-red-500 md:text-2xl">
               {formatCurrency(totalDespesas)}
             </p>
           </CardContent>
@@ -125,14 +125,14 @@ export function RelatorioAnualContent({ data }: RelatorioAnualContentProps) {
               : "border-red-500/20 bg-red-500/5"
           }
         >
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">
+          <CardHeader className="p-4 pb-2 md:p-6 md:pb-2">
+            <CardTitle className="text-xs font-medium md:text-sm">
               Saldo Anual {data.ano}
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-4 pt-0 md:p-6 md:pt-0">
             <p
-              className={`text-2xl font-bold ${
+              className={`text-xl font-bold md:text-2xl ${
                 saldoAnual >= 0 ? "text-green-500" : "text-red-500"
               }`}
             >
@@ -144,17 +144,25 @@ export function RelatorioAnualContent({ data }: RelatorioAnualContentProps) {
 
       {/* Gráfico de Barras - Ganhos vs Despesas por mês */}
       <Card>
-        <CardHeader>
-          <CardTitle>Ganhos vs Despesas por Mês</CardTitle>
+        <CardHeader className="p-4 md:p-6">
+          <CardTitle className="text-base md:text-lg">
+            Ganhos vs Despesas por Mês
+          </CardTitle>
         </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={350}>
+        <CardContent className="p-4 md:p-6">
+          <ResponsiveContainer width="100%" height={280}>
             <BarChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
-              <XAxis dataKey="name" axisLine={false} tickLine={false} />
+              <XAxis
+                dataKey="name"
+                axisLine={false}
+                tickLine={false}
+                tick={{ fontSize: 10 }}
+              />
               <YAxis
                 axisLine={false}
                 tickLine={false}
+                tick={{ fontSize: 10 }}
                 tickFormatter={(value) =>
                   new Intl.NumberFormat("pt-BR", {
                     notation: "compact",
@@ -167,9 +175,10 @@ export function RelatorioAnualContent({ data }: RelatorioAnualContentProps) {
                   backgroundColor: "hsl(var(--background))",
                   border: "1px solid hsl(var(--border))",
                   borderRadius: "8px",
+                  fontSize: "12px",
                 }}
               />
-              <Legend />
+              <Legend wrapperStyle={{ fontSize: "12px" }} />
               <Bar dataKey="Ganhos" fill="#22c55e" radius={[4, 4, 0, 0]} />
               <Bar dataKey="Despesas" fill="#ef4444" radius={[4, 4, 0, 0]} />
             </BarChart>
@@ -179,17 +188,25 @@ export function RelatorioAnualContent({ data }: RelatorioAnualContentProps) {
 
       {/* Gráfico de Linha - Evolução do Saldo */}
       <Card>
-        <CardHeader>
-          <CardTitle>Evolução do Saldo Mensal</CardTitle>
+        <CardHeader className="p-4 md:p-6">
+          <CardTitle className="text-base md:text-lg">
+            Evolução do Saldo Mensal
+          </CardTitle>
         </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={300}>
+        <CardContent className="p-4 md:p-6">
+          <ResponsiveContainer width="100%" height={250}>
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
-              <XAxis dataKey="name" axisLine={false} tickLine={false} />
+              <XAxis
+                dataKey="name"
+                axisLine={false}
+                tickLine={false}
+                tick={{ fontSize: 10 }}
+              />
               <YAxis
                 axisLine={false}
                 tickLine={false}
+                tick={{ fontSize: 10 }}
                 tickFormatter={(value) =>
                   new Intl.NumberFormat("pt-BR", {
                     notation: "compact",
@@ -202,15 +219,16 @@ export function RelatorioAnualContent({ data }: RelatorioAnualContentProps) {
                   backgroundColor: "hsl(var(--background))",
                   border: "1px solid hsl(var(--border))",
                   borderRadius: "8px",
+                  fontSize: "12px",
                 }}
               />
-              <Legend />
+              <Legend wrapperStyle={{ fontSize: "12px" }} />
               <Line
                 type="monotone"
                 dataKey="Saldo"
                 stroke="#8b5cf6"
                 strokeWidth={2}
-                dot={{ fill: "#8b5cf6" }}
+                dot={{ fill: "#8b5cf6", r: 3 }}
               />
             </LineChart>
           </ResponsiveContainer>
@@ -219,10 +237,12 @@ export function RelatorioAnualContent({ data }: RelatorioAnualContentProps) {
 
       {/* Tabela detalhada por mês */}
       <Card>
-        <CardHeader>
-          <CardTitle>Detalhamento Mensal</CardTitle>
+        <CardHeader className="p-4 md:p-6">
+          <CardTitle className="text-base md:text-lg">
+            Detalhamento Mensal
+          </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="overflow-x-auto p-4 md:p-6">
           <Table>
             <TableHeader>
               <TableRow>

@@ -81,7 +81,7 @@ export function BankAccountFormDialog() {
           Banco
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="max-h-[90vh] w-[95vw] max-w-[500px] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Nova Conta Bancária</DialogTitle>
           <DialogDescription>
@@ -106,7 +106,7 @@ export function BankAccountFormDialog() {
                 </FormItem>
               )}
             />
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <FormField
                 control={form.control}
                 name="agencia"
@@ -181,15 +181,20 @@ export function BankAccountFormDialog() {
                 </FormItem>
               )}
             />
-            <DialogFooter>
+            <DialogFooter className="flex-col gap-2 sm:flex-row">
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => setOpen(false)}
+                className="w-full sm:w-auto"
               >
                 Cancelar
               </Button>
-              <Button type="submit" disabled={isPending}>
+              <Button
+                type="submit"
+                disabled={isPending}
+                className="w-full sm:w-auto"
+              >
                 {isPending ? "Salvando..." : "Confirmar"}
               </Button>
             </DialogFooter>

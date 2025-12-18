@@ -146,7 +146,7 @@ export function BankAccountCard({
       </Card>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-[500px]">
+        <DialogContent className="max-h-[90vh] w-[95vw] max-w-[500px] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Editar Conta Bancária</DialogTitle>
             <DialogDescription>
@@ -246,15 +246,20 @@ export function BankAccountCard({
                   </FormItem>
                 )}
               />
-              <DialogFooter>
+              <DialogFooter className="flex-col gap-2 sm:flex-row">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setOpen(false)}
+                  className="w-full sm:w-auto"
                 >
                   Cancelar
                 </Button>
-                <Button type="submit" disabled={isPending}>
+                <Button
+                  type="submit"
+                  disabled={isPending}
+                  className="w-full sm:w-auto"
+                >
                   {isPending ? "Salvando..." : "Salvar"}
                 </Button>
               </DialogFooter>

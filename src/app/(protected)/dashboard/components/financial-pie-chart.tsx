@@ -52,14 +52,16 @@ export function FinancialPieChart({
   if (total === 0) {
     return (
       <Card>
-        <CardHeader>
-          <CardTitle>Distribuição Financeira</CardTitle>
-          <CardDescription>
+        <CardHeader className="p-4 md:p-6">
+          <CardTitle className="text-base md:text-lg">
+            Distribuição Financeira
+          </CardTitle>
+          <CardDescription className="text-xs md:text-sm">
             Visão geral de ganhos, despesas e dívidas
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex items-center justify-center py-12">
-          <p className="text-muted-foreground">
+        <CardContent className="flex items-center justify-center py-8 md:py-12">
+          <p className="text-sm text-muted-foreground">
             Nenhum dado disponível para este período
           </p>
         </CardContent>
@@ -69,28 +71,26 @@ export function FinancialPieChart({
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Distribuição Financeira</CardTitle>
-        <CardDescription>
+      <CardHeader className="p-4 md:p-6">
+        <CardTitle className="text-base md:text-lg">
+          Distribuição Financeira
+        </CardTitle>
+        <CardDescription className="text-xs md:text-sm">
           Visão geral de ganhos, despesas e dívidas
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
+      <CardContent className="p-4 md:p-6">
+        <ResponsiveContainer width="100%" height={250}>
           <PieChart>
             <Pie
               data={chartData}
               cx="50%"
-              cy="50%"
-              innerRadius={60}
-              outerRadius={100}
+              cy="45%"
+              innerRadius={40}
+              outerRadius={70}
               paddingAngle={2}
               dataKey="value"
               nameKey="name"
-              label={({ name, percent }) =>
-                `${name} ${(percent * 100).toFixed(0)}%`
-              }
-              labelLine={false}
             >
               {chartData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.color} />
@@ -102,13 +102,16 @@ export function FinancialPieChart({
                 backgroundColor: "hsl(var(--background))",
                 border: "1px solid hsl(var(--border))",
                 borderRadius: "8px",
+                fontSize: "12px",
               }}
             />
             <Legend
               verticalAlign="bottom"
               height={36}
               formatter={(value) => (
-                <span className="text-sm text-foreground">{value}</span>
+                <span className="text-xs text-foreground md:text-sm">
+                  {value}
+                </span>
               )}
             />
           </PieChart>

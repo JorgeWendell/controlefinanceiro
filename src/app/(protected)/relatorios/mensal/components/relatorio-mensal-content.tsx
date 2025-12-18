@@ -107,37 +107,37 @@ export function RelatorioMensalContent({ data }: RelatorioMensalContentProps) {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Header do período */}
       <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">
+        <CardHeader className="p-4 md:p-6">
+          <CardTitle className="text-base md:text-lg">
             Relatório de {MESES[data.mes - 1]} de {data.ano}
           </CardTitle>
         </CardHeader>
       </Card>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 lg:grid-cols-2">
         {/* Pie Chart - Distribuição */}
         <Card>
-          <CardHeader>
-            <CardTitle>Distribuição por Categoria</CardTitle>
+          <CardHeader className="p-4 md:p-6">
+            <CardTitle className="text-base md:text-lg">
+              Distribuição por Categoria
+            </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-4 md:p-6">
             {pieData.length > 0 ? (
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={250}>
                 <PieChart>
                   <Pie
                     data={pieData}
                     cx="50%"
-                    cy="50%"
-                    innerRadius={60}
-                    outerRadius={100}
+                    cy="45%"
+                    innerRadius={40}
+                    outerRadius={70}
                     paddingAngle={2}
                     dataKey="value"
                     nameKey="name"
-                    label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
-                    labelLine={false}
                   >
                     {pieData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
@@ -149,14 +149,17 @@ export function RelatorioMensalContent({ data }: RelatorioMensalContentProps) {
                       backgroundColor: "hsl(var(--background))",
                       border: "1px solid hsl(var(--border))",
                       borderRadius: "8px",
+                      fontSize: "12px",
                     }}
                   />
-                  <Legend />
+                  <Legend wrapperStyle={{ fontSize: "12px" }} />
                 </PieChart>
               </ResponsiveContainer>
             ) : (
-              <div className="flex h-[300px] items-center justify-center">
-                <p className="text-muted-foreground">Sem dados para exibir</p>
+              <div className="flex h-[250px] items-center justify-center">
+                <p className="text-sm text-muted-foreground">
+                  Sem dados para exibir
+                </p>
               </div>
             )}
           </CardContent>
@@ -164,16 +167,24 @@ export function RelatorioMensalContent({ data }: RelatorioMensalContentProps) {
 
         {/* Bar Chart - Comparativo Entradas x Saídas */}
         <Card>
-          <CardHeader>
-            <CardTitle>Entradas vs Saídas</CardTitle>
+          <CardHeader className="p-4 md:p-6">
+            <CardTitle className="text-base md:text-lg">
+              Entradas vs Saídas
+            </CardTitle>
           </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
+          <CardContent className="p-4 md:p-6">
+            <ResponsiveContainer width="100%" height={250}>
               <BarChart data={comparativoData}>
-                <XAxis dataKey="name" axisLine={false} tickLine={false} />
+                <XAxis
+                  dataKey="name"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 11 }}
+                />
                 <YAxis
                   axisLine={false}
                   tickLine={false}
+                  tick={{ fontSize: 10 }}
                   tickFormatter={(value) =>
                     new Intl.NumberFormat("pt-BR", {
                       notation: "compact",
@@ -186,6 +197,7 @@ export function RelatorioMensalContent({ data }: RelatorioMensalContentProps) {
                     backgroundColor: "hsl(var(--background))",
                     border: "1px solid hsl(var(--border))",
                     borderRadius: "8px",
+                    fontSize: "12px",
                   }}
                 />
                 <Bar dataKey="valor" radius={[4, 4, 0, 0]}>
@@ -201,16 +213,19 @@ export function RelatorioMensalContent({ data }: RelatorioMensalContentProps) {
 
       {/* Bar Chart - Todas as categorias */}
       <Card>
-        <CardHeader>
-          <CardTitle>Visão Geral por Categoria</CardTitle>
+        <CardHeader className="p-4 md:p-6">
+          <CardTitle className="text-base md:text-lg">
+            Visão Geral por Categoria
+          </CardTitle>
         </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={300}>
+        <CardContent className="p-4 md:p-6">
+          <ResponsiveContainer width="100%" height={280}>
             <BarChart data={barData} layout="vertical">
               <XAxis
                 type="number"
                 axisLine={false}
                 tickLine={false}
+                tick={{ fontSize: 10 }}
                 tickFormatter={(value) =>
                   new Intl.NumberFormat("pt-BR", {
                     notation: "compact",
@@ -222,7 +237,8 @@ export function RelatorioMensalContent({ data }: RelatorioMensalContentProps) {
                 dataKey="name"
                 axisLine={false}
                 tickLine={false}
-                width={120}
+                width={90}
+                tick={{ fontSize: 11 }}
               />
               <Tooltip
                 formatter={(value: number) => formatCurrency(value)}
@@ -230,6 +246,7 @@ export function RelatorioMensalContent({ data }: RelatorioMensalContentProps) {
                   backgroundColor: "hsl(var(--background))",
                   border: "1px solid hsl(var(--border))",
                   borderRadius: "8px",
+                  fontSize: "12px",
                 }}
               />
               <Bar dataKey="valor" radius={[0, 4, 4, 0]}>

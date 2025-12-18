@@ -145,14 +145,14 @@ export function GanhoTable({ ganhos }: GanhoTableProps) {
 
   return (
     <>
-      <div className="rounded-md border">
+      <div className="overflow-x-auto rounded-md border">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Descrição</TableHead>
-              <TableHead>Valor</TableHead>
-              <TableHead>Data</TableHead>
-              <TableHead>Banco</TableHead>
+              <TableHead className="min-w-[150px]">Descrição</TableHead>
+              <TableHead className="min-w-[100px]">Valor</TableHead>
+              <TableHead className="min-w-[100px]">Data</TableHead>
+              <TableHead className="min-w-[100px]">Banco</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -160,7 +160,7 @@ export function GanhoTable({ ganhos }: GanhoTableProps) {
               <TableRow>
                 <TableCell
                   colSpan={4}
-                  className="text-center text-muted-foreground py-8"
+                  className="py-8 text-center text-muted-foreground"
                 >
                   Nenhum ganho cadastrado
                 </TableCell>
@@ -175,7 +175,7 @@ export function GanhoTable({ ganhos }: GanhoTableProps) {
                   <TableCell className="font-medium">
                     {ganho.descricao}
                   </TableCell>
-                  <TableCell className="text-green-600 font-medium">
+                  <TableCell className="font-medium text-green-600">
                     {formatCurrency(ganho.valor)}
                   </TableCell>
                   <TableCell>{formatDate(ganho.data)}</TableCell>
@@ -188,7 +188,7 @@ export function GanhoTable({ ganhos }: GanhoTableProps) {
       </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-[500px]">
+        <DialogContent className="max-h-[90vh] w-[95vw] max-w-[500px] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Editar Ganho</DialogTitle>
             <DialogDescription>
@@ -205,7 +205,7 @@ export function GanhoTable({ ganhos }: GanhoTableProps) {
                     <FormLabel>Descrição</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Ex: Salário, Freelance, Investimento..."
+                        placeholder="Ex: Salário, Freelance..."
                         {...field}
                       />
                     </FormControl>
@@ -213,7 +213,7 @@ export function GanhoTable({ ganhos }: GanhoTableProps) {
                   </FormItem>
                 )}
               />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <FormField
                   control={form.control}
                   name="valor"
@@ -270,15 +270,20 @@ export function GanhoTable({ ganhos }: GanhoTableProps) {
                   </FormItem>
                 )}
               />
-              <DialogFooter>
+              <DialogFooter className="flex-col gap-2 sm:flex-row">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setOpen(false)}
+                  className="w-full sm:w-auto"
                 >
                   Cancelar
                 </Button>
-                <Button type="submit" disabled={isPending}>
+                <Button
+                  type="submit"
+                  disabled={isPending}
+                  className="w-full sm:w-auto"
+                >
                   {isPending ? "Salvando..." : "Salvar"}
                 </Button>
               </DialogFooter>

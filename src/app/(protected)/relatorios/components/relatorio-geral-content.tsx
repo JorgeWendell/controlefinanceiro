@@ -103,45 +103,49 @@ export function RelatorioGeralContent({ data }: RelatorioGeralContentProps) {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Header do período */}
       <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">
+        <CardHeader className="p-4 md:p-6">
+          <CardTitle className="text-base md:text-lg">
             Período: {MESES[data.mes - 1]} de {data.ano}
           </CardTitle>
         </CardHeader>
       </Card>
 
       {/* Cards de resumo */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-3">
         <Card className="border-green-500/20 bg-green-500/5">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">
+          <CardHeader className="flex flex-row items-center justify-between p-4 pb-2 md:p-6 md:pb-2">
+            <CardTitle className="text-xs font-medium md:text-sm">
               Total Entradas
             </CardTitle>
-            <ArrowUpRight className="h-5 w-5 text-green-500" />
+            <ArrowUpRight className="h-4 w-4 text-green-500 md:h-5 md:w-5" />
           </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-green-500">
+          <CardContent className="p-4 pt-0 md:p-6 md:pt-0">
+            <p className="text-xl font-bold text-green-500 md:text-2xl">
               {formatCurrency(data.ganhos.total)}
             </p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-xs text-muted-foreground md:text-sm">
               {data.ganhos.count} registro(s)
             </p>
           </CardContent>
         </Card>
 
         <Card className="border-red-500/20 bg-red-500/5">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Saídas</CardTitle>
-            <ArrowDownRight className="h-5 w-5 text-red-500" />
+          <CardHeader className="flex flex-row items-center justify-between p-4 pb-2 md:p-6 md:pb-2">
+            <CardTitle className="text-xs font-medium md:text-sm">
+              Total Saídas
+            </CardTitle>
+            <ArrowDownRight className="h-4 w-4 text-red-500 md:h-5 md:w-5" />
           </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-red-500">
+          <CardContent className="p-4 pt-0 md:p-6 md:pt-0">
+            <p className="text-xl font-bold text-red-500 md:text-2xl">
               {formatCurrency(data.totalDespesas + data.dividas.total)}
             </p>
-            <p className="text-sm text-muted-foreground">Despesas + Dívidas</p>
+            <p className="text-xs text-muted-foreground md:text-sm">
+              Despesas + Dívidas
+            </p>
           </CardContent>
         </Card>
 
@@ -152,25 +156,25 @@ export function RelatorioGeralContent({ data }: RelatorioGeralContentProps) {
               : "border-red-500/20 bg-red-500/5"
           }
         >
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">
+          <CardHeader className="flex flex-row items-center justify-between p-4 pb-2 md:p-6 md:pb-2">
+            <CardTitle className="text-xs font-medium md:text-sm">
               Saldo do Período
             </CardTitle>
             <Wallet
-              className={`h-5 w-5 ${
+              className={`h-4 w-4 md:h-5 md:w-5 ${
                 data.saldoDisponivel >= 0 ? "text-green-500" : "text-red-500"
               }`}
             />
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-4 pt-0 md:p-6 md:pt-0">
             <p
-              className={`text-2xl font-bold ${
+              className={`text-xl font-bold md:text-2xl ${
                 data.saldoDisponivel >= 0 ? "text-green-500" : "text-red-500"
               }`}
             >
               {formatCurrency(data.saldoDisponivel)}
             </p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-xs text-muted-foreground md:text-sm">
               Entradas - Saídas - Investimentos
             </p>
           </CardContent>
@@ -179,10 +183,10 @@ export function RelatorioGeralContent({ data }: RelatorioGeralContentProps) {
 
       {/* Tabela detalhada */}
       <Card>
-        <CardHeader>
-          <CardTitle>Detalhamento</CardTitle>
+        <CardHeader className="p-4 md:p-6">
+          <CardTitle className="text-base md:text-lg">Detalhamento</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="overflow-x-auto p-4 md:p-6">
           <Table>
             <TableHeader>
               <TableRow>

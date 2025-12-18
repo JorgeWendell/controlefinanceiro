@@ -57,12 +57,14 @@ export function FinancialBarChart({
   if (!hasData) {
     return (
       <Card>
-        <CardHeader>
-          <CardTitle>Patrimônio</CardTitle>
-          <CardDescription>Investimentos e saldo disponível</CardDescription>
+        <CardHeader className="p-4 md:p-6">
+          <CardTitle className="text-base md:text-lg">Patrimônio</CardTitle>
+          <CardDescription className="text-xs md:text-sm">
+            Investimentos e saldo disponível
+          </CardDescription>
         </CardHeader>
-        <CardContent className="flex items-center justify-center py-12">
-          <p className="text-muted-foreground">
+        <CardContent className="flex items-center justify-center py-8 md:py-12">
+          <p className="text-sm text-muted-foreground">
             Nenhum dado disponível para este período
           </p>
         </CardContent>
@@ -72,12 +74,14 @@ export function FinancialBarChart({
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Patrimônio</CardTitle>
-        <CardDescription>Investimentos e saldo disponível</CardDescription>
+      <CardHeader className="p-4 md:p-6">
+        <CardTitle className="text-base md:text-lg">Patrimônio</CardTitle>
+        <CardDescription className="text-xs md:text-sm">
+          Investimentos e saldo disponível
+        </CardDescription>
       </CardHeader>
-      <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
+      <CardContent className="p-4 md:p-6">
+        <ResponsiveContainer width="100%" height={250}>
           <BarChart data={chartData} layout="vertical">
             <XAxis
               type="number"
@@ -89,14 +93,15 @@ export function FinancialBarChart({
               }
               axisLine={false}
               tickLine={false}
+              tick={{ fontSize: 10 }}
             />
             <YAxis
               type="category"
               dataKey="name"
               axisLine={false}
               tickLine={false}
-              width={120}
-              tick={{ fontSize: 12 }}
+              width={90}
+              tick={{ fontSize: 11 }}
             />
             <Tooltip
               formatter={(value: number) => formatCurrency(value)}
@@ -104,10 +109,11 @@ export function FinancialBarChart({
                 backgroundColor: "hsl(var(--background))",
                 border: "1px solid hsl(var(--border))",
                 borderRadius: "8px",
+                fontSize: "12px",
               }}
               cursor={{ fill: "hsl(var(--muted))", opacity: 0.3 }}
             />
-            <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={40}>
+            <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={35}>
               {chartData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.color} />
               ))}

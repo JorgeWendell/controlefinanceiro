@@ -112,15 +112,20 @@ export function CategoriaFormDialog() {
                 </FormItem>
               )}
             />
-            <DialogFooter>
+            <DialogFooter className="flex-col gap-2 sm:flex-row">
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => setOpen(false)}
+                className="w-full sm:w-auto"
               >
                 Cancelar
               </Button>
-              <Button type="submit" disabled={isPending}>
+              <Button
+                type="submit"
+                disabled={isPending}
+                className="w-full sm:w-auto"
+              >
                 {isPending ? "Salvando..." : "Confirmar"}
               </Button>
             </DialogFooter>

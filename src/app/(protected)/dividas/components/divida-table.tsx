@@ -192,7 +192,7 @@ export function DividaTable({ dividas }: DividaTableProps) {
 
   return (
     <>
-      <div className="rounded-md border">
+      <div className="overflow-x-auto rounded-md border">
         <Table>
           <TableHeader>
             <TableRow>
@@ -241,7 +241,7 @@ export function DividaTable({ dividas }: DividaTableProps) {
       </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-[500px]">
+        <DialogContent className="max-h-[90vh] w-[95vw] max-w-[500px] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Editar Dívida</DialogTitle>
             <DialogDescription>
@@ -266,7 +266,7 @@ export function DividaTable({ dividas }: DividaTableProps) {
                   </FormItem>
                 )}
               />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <FormField
                   control={form.control}
                   name="valor"
@@ -299,7 +299,7 @@ export function DividaTable({ dividas }: DividaTableProps) {
                   )}
                 />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <FormField
                   control={form.control}
                   name="valorPago"
@@ -377,15 +377,20 @@ export function DividaTable({ dividas }: DividaTableProps) {
                   )}
                 />
               )}
-              <DialogFooter>
+              <DialogFooter className="flex-col gap-2 sm:flex-row">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setOpen(false)}
+                  className="w-full sm:w-auto"
                 >
                   Cancelar
                 </Button>
-                <Button type="submit" disabled={isPending}>
+                <Button
+                  type="submit"
+                  disabled={isPending}
+                  className="w-full sm:w-auto"
+                >
                   {isPending ? "Salvando..." : "Salvar"}
                 </Button>
               </DialogFooter>

@@ -27,18 +27,21 @@ export function SummaryCard({
   descriptionColor = "default",
 }: SummaryCardProps) {
   return (
-    <Card className="gap-4 py-5">
+    <Card className="gap-2 py-3 md:gap-4 md:py-5">
       <CardHeader className="flex-row items-center justify-between space-y-0 pb-0">
-        <CardTitle className="text-sm font-medium text-muted-foreground">
+        <CardTitle className="text-xs font-medium text-muted-foreground md:text-sm">
           {title}
         </CardTitle>
-        <Icon className="size-5 text-muted-foreground" />
+        <Icon className="size-4 text-muted-foreground md:size-5" />
       </CardHeader>
       <CardContent className="space-y-1">
-        <p className="text-2xl font-bold">{value}</p>
+        <p className="text-lg font-bold md:text-2xl">{value}</p>
         {description && (
           <p
-            className={cn("text-sm", descriptionColorClasses[descriptionColor])}
+            className={cn(
+              "text-xs md:text-sm",
+              descriptionColorClasses[descriptionColor]
+            )}
           >
             {description}
           </p>

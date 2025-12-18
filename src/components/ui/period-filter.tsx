@@ -64,12 +64,14 @@ export function PeriodFilter() {
   };
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-2 md:gap-4">
       <div className="flex flex-col gap-1">
-        <span className="text-sm font-medium text-muted-foreground">Mês</span>
+        <span className="hidden text-sm font-medium text-muted-foreground md:block">
+          Mês
+        </span>
         <Select value={currentMonth} onValueChange={handleMonthChange}>
-          <SelectTrigger className="w-[140px]">
-            <SelectValue placeholder="Selecione o mês" />
+          <SelectTrigger className="w-[110px] md:w-[140px]">
+            <SelectValue placeholder="Mês" />
           </SelectTrigger>
           <SelectContent>
             {MONTHS.map((month) => (
@@ -82,9 +84,11 @@ export function PeriodFilter() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <span className="text-sm font-medium text-muted-foreground">Ano</span>
+        <span className="hidden text-sm font-medium text-muted-foreground md:block">
+          Ano
+        </span>
         <Select value={currentYearParam} onValueChange={handleYearChange}>
-          <SelectTrigger className="w-[100px]">
+          <SelectTrigger className="w-[80px] md:w-[100px]">
             <SelectValue placeholder="Ano" />
           </SelectTrigger>
           <SelectContent>

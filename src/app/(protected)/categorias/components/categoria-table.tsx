@@ -137,7 +137,7 @@ export function CategoriaTable({ categorias }: CategoriaTableProps) {
 
   return (
     <>
-      <div className="rounded-md border">
+      <div className="overflow-x-auto rounded-md border">
         <Table>
           <TableHeader>
             <TableRow>
@@ -217,25 +217,31 @@ export function CategoriaTable({ categorias }: CategoriaTableProps) {
                   </FormItem>
                 )}
               />
-              <DialogFooter className="flex justify-between sm:justify-between">
+              <DialogFooter className="flex flex-col gap-2 sm:flex-row sm:justify-between">
                 <Button
                   type="button"
                   variant="destructive"
                   onClick={() => setDeleteDialogOpen(true)}
                   disabled={isUpdating || isDeleting}
+                  className="w-full sm:w-auto"
                 >
-                  <Trash2 className="h-4 w-4 mr-2" />
+                  <Trash2 className="mr-2 h-4 w-4" />
                   Excluir
                 </Button>
-                <div className="flex gap-2">
+                <div className="flex flex-col gap-2 sm:flex-row">
                   <Button
                     type="button"
                     variant="outline"
                     onClick={() => setOpen(false)}
+                    className="w-full sm:w-auto"
                   >
                     Cancelar
                   </Button>
-                  <Button type="submit" disabled={isUpdating || isDeleting}>
+                  <Button
+                    type="submit"
+                    disabled={isUpdating || isDeleting}
+                    className="w-full sm:w-auto"
+                  >
                     {isUpdating ? "Salvando..." : "Salvar"}
                   </Button>
                 </div>
