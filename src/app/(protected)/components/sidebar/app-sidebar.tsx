@@ -1,22 +1,17 @@
 "use client";
 
 import {
-  BarChart3,
-  DollarSign,
-  FactoryIcon,
-  FileText,
-  Handshake,
+  CreditCard,
   LayoutDashboard,
   LogOut,
   Moon,
-  Package,
-  PackageOpen,
-  ShieldCheck,
-  ShoppingCart,
+  PiggyBank,
+  Settings,
   Sun,
-  Tag,
-  Truck,
-  UsersIcon,
+  Target,
+  TrendingDown,
+  TrendingUp,
+  Wallet,
 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -60,6 +55,50 @@ const data = {
             {
               title: "Dashboard",
               url: "/dashboard",
+            },
+          ],
+        },
+        {
+          title: "Financeiro",
+          icon: TrendingUp,
+          items: [
+            {
+              title: "Ganhos",
+              url: "/ganhos",
+            },
+            {
+              title: "Despesas Fixas",
+              url: "/despesas-fixas",
+            },
+            {
+              title: "Despesas Variáveis",
+              url: "/despesas-variaveis",
+            },
+            {
+              title: "Dívidas",
+              url: "/dividas",
+            },
+            {
+              title: "Metas",
+              url: "/metas",
+            },
+            {
+              title: "Investimentos",
+              url: "/investimentos",
+            },
+          ],
+        },
+        {
+          title: "Configurações",
+          icon: Settings,
+          items: [
+            {
+              title: "Contas Bancárias",
+              url: "/contas-bancarias",
+            },
+            {
+              title: "Categorias",
+              url: "/categorias",
             },
           ],
         },
